@@ -15,9 +15,12 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^6.15.0",
+    "googleapi": "^1.0.2",
+    "googleapis": "^112.0.0",
     "jsonwebtoken": "^9.0.0",
     "mongoos": "^0.0.1-security",
-    "mongoose": "^6.10.2"
+    "mongoose": "^6.10.2",
+    "nodemailer": "^6.9.1"
   },
   "devDependencies": {
     "nodemon": "^2.0.20"
