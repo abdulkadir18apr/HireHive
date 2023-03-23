@@ -1,10 +1,28 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import "./css/login.css";
 import ill from "./img/ill.svg"
 import register from "./img/register.svg"
+import AuthState from '../../contexts/authentication/AuthState';
 
 
 export default function Login(props) {
+    const authObj = useContext(AuthState);
+    const { studentLogin } = authObj;
+    const [credentials, setCredentials] = useState({ email: "", password: "" });
+
+
+
+    //handle Student login Change
+    const studentLoginChange = (e) => {
+        setCredentials({ [e.target.name]: e.target.value });
+    }
+    //handle login click 
+    const studentLoginClick = async () => {
+        const authToken = await studentLogin(credentials);
+        console.log(authToken);
+    }
+
+
 
     const [mode, setMode] = useState("");
     const toggleMode = () => {
@@ -26,17 +44,17 @@ export default function Login(props) {
                 <div className="signin-signup">
 
 
-                    <form action="#" className="sign-in-form">
+                    <form action="/" className="sign-in-form">
                         <h2 className="title">Login</h2>
                         <div className="input-field">
                             <i className="fas fa-user"></i>
-                            <input type="email" placeholder="Email-id" required name="email" />
+                            <input type="email" placeholder="Email-id" required name="email" onChange={studentLoginChange} />
                         </div>
                         <div className="input-field">
                             <i className="fas fa-lock"></i>
-                            <input type="password" className="form-control" placeholder="Password" name='password' required minLength="8" />
+                            <input type="password" className="form-control" placeholder="Password" name='password' required minLength="8" onChange={studentLoginChange} />
                         </div>
-                        <input type="submit" value="Login" className="btn solid" />
+                        <input type="submit" value="Login" className="btn solid" name="login" onClick={studentLoginClick} />
                         <p className="social-text">Or Sign in with social platforms</p>
                         <div className="social-media-icons">
 

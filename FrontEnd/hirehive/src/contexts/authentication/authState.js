@@ -1,10 +1,10 @@
 
+import AuthContext from "./authContext";
 import { useState } from "react";
-import authContext from "./authContext";
 
-const authState = (props) => {
-    const host = "http://localhost:8000";
-    const [user, setUser] = useState({});
+const AuthState = (props) => {
+    const host = "http://localhost:8000/";
+    const [user, setUser] = useState("");
 
     const studentLogin = async ({ email, password }) => {
         const response = await fetch(`${host}api/auth/studentLogin`, {
@@ -19,7 +19,8 @@ const authState = (props) => {
         });
         const json = await response.json()
         if (json.success) {
-            localStorage.setItem('token', json.authToken)
+            localStorage.setItem('token', json.authToken);
+            return json;
         }
         else {
             return json;
@@ -82,9 +83,9 @@ const authState = (props) => {
     }
 
     return (
-        <authContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails }} >
+        <AuthContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails }} >
             {props.children}
-        </authContext.Provider>
+        </AuthContext.Provider>
     )
 }
-export default authState
+export default AuthState
