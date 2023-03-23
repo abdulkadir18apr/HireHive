@@ -56,11 +56,11 @@ router.post('/studentSignUp', [
         //check if email already exist
         let student = await Student.findOne({ email: req.body.email });
         if (student) {
-            return res.status(400).json({ mgs: "Email Aleady Exist" });
+            return res.status(400).json({ success, mgs: "Email Aleady Exist" });
         }
         student = await Student.findOne({ enrollment: req.body.enrollment });
         if (student) {
-            return res.status(400).json({ mgs: "Enrollment Aleady Exist" });
+            return res.status(400).json({ success, mgs: "Enrollment Aleady Exist" });
 
         }
         //verification
@@ -85,7 +85,7 @@ router.post('/studentSignUp', [
             })
         }
         else {
-            res.json("Student Not enrolled in Scsit");
+            res.json({ success, msg: "Student Not enrolled in Scsit" });
         }
     }
     catch (error) {
@@ -126,11 +126,11 @@ router.post('/studentverify', [body('otp').isLength({ min: 4 })], async (req, re
         const { id, otp } = req.body
         let success = await verifyOtp(id, otp);
         if (!success) {
-            return res.json({ msg: "Otp verification Failed" });
+            return res.json({ success, msg: "Otp verification Failed" });
         }
         let student = await userOtpVerification.findById(id);
         if (!student) {
-            return res.status(500).json({ msg: "something went wrong" })
+            return res.status(500).json({ success: false, msg: "something went wrong" })
         }
 
 
@@ -195,14 +195,15 @@ router.post('/studentLogin', [
 
 //Route-03 Get Student  Details Login Required
 router.post('/getStudent', fetchuser, async (req, res) => {
+    let success = false;
     try {
         const studentId = req.user.id;
         const student = await Student.findById(studentId).select("-password");
-        res.json(student);
+        res.json({ success: true, student });
     }
     catch (error) {
         console.log(error.message)
-        res.status(500).json("internal Serval error")
+        res.status(500).json({ success, msg: "Internal Server Error" })
     }
 
 })
@@ -242,6 +243,8 @@ const sendOtpVerificationEmail = async ({ _id, email }, res) => {
             user: _id, email
         }
         res.json({
+
+            success: true,
             message: "Verification Otp email Sent",
             status: "PENDING",
             id: newUser._id,
@@ -251,6 +254,7 @@ const sendOtpVerificationEmail = async ({ _id, email }, res) => {
     }
     catch (err) {
         res.json({
+            success: false,
             message: "something went wrong",
             status: "FAILED",
             error: err.message
@@ -303,12 +307,12 @@ router.post('/studentupdate', [body('otp').isLength({ min: 4 }), body('password'
         const { id, otp } = req.body;
         let verifyRes = await verifyOtp(id, otp);
         if (!verifyRes) {
-            return res.status(400).json("Something went wrong");
+            return res.status(400).json({ success: false, msg: "Something went wrong" });
         }
         let student = await userOtpVerification.findById(id);
         await Student.findByIdAndUpdate(student.user, { password: secpass })
         await userOtpVerification.findByIdAndDelete(student._id);
-        return res.json("Password Updated Successfully")
+        return res.json({ success: true, msg: "Password Updated Successfully" })
     }
     catch (err) {
         res.json({
