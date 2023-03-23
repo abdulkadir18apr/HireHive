@@ -192,7 +192,7 @@ input {
     background-color: var(--auth-hover)
   }
 
-  #mode{
+  .mode{
     position: absolute;
     top:5%;
     right:5%;

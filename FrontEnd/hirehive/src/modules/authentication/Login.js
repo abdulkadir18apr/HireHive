@@ -2,11 +2,14 @@ import React, { useContext, useState } from 'react'
 import "./css/login.css";
 import ill from "./img/ill.svg"
 import register from "./img/register.svg"
-import AuthState from '../../contexts/authentication/AuthState';
+import authContext from '../../contexts/authentication/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Login(props) {
-    const authObj = useContext(AuthState);
+    const authObj = useContext(authContext);
+    const navigate = useNavigate();
+
     const { studentLogin } = authObj;
     const [credentials, setCredentials] = useState({ email: "", password: "" });
 
@@ -14,12 +17,17 @@ export default function Login(props) {
 
     //handle Student login Change
     const studentLoginChange = (e) => {
-        setCredentials({ [e.target.name]: e.target.value });
+        setCredentials({ ...credentials, [e.target.name]: e.target.value });
     }
     //handle login click 
-    const studentLoginClick = async () => {
-        const authToken = await studentLogin(credentials);
-        console.log(authToken);
+    const studentLoginClick = async (e) => {
+        e.preventDefault();
+        const tokenObj = await studentLogin(credentials);
+        if (!tokenObj.success) {
+            alert("Something Went Wrong");
+        }
+
+        navigate('/student/Dashboard')
     }
 
 
@@ -33,8 +41,9 @@ export default function Login(props) {
             setMode("");
         }
     };
-    const changeMode = () => {
-        console.log("changing mode...")
+    const changeMode = (e) => {
+        e.preventDefault();
+        console.log("Changing")
         props.toggleDarkMode();
     }
     return (
@@ -44,7 +53,7 @@ export default function Login(props) {
                 <div className="signin-signup">
 
 
-                    <form action="/" className="sign-in-form">
+                    <form onSubmit={studentLoginClick} method="POST" className="sign-in-form">
                         <h2 className="title">Login</h2>
                         <div className="input-field">
                             <i className="fas fa-user"></i>
@@ -63,11 +72,14 @@ export default function Login(props) {
                             <a href="/"><i className="fa fa-linkedin-square fa-3x"></i></a>
                             <a href="/"><i className="fa fa-twitter-square fa-3x"></i></a>
                         </div>
-                        <i className='fa fa-thin fa-bolt fa-2x' id="mode" onClick={changeMode} ></i>
+
                     </form>
+                    <a onClick={changeMode} href="/" ><i className='fa fa-solid fa-bolt fa-2x'></i></a>
 
 
-                    <form action="/" className="sign-up-form">
+
+
+                    <form className="sign-up-form">
                         <h2 className="title">Register</h2>
                         <div className="input-field">
                             <i className="fas fa-user"></i>

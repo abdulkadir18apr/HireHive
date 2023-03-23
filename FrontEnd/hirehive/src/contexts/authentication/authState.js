@@ -1,5 +1,5 @@
 
-import AuthContext from "./authContext";
+import authContext from "./AuthContext";
 import { useState } from "react";
 
 const AuthState = (props) => {
@@ -12,12 +12,12 @@ const AuthState = (props) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: {
+            body: JSON.stringify({
                 "email": email,
                 "password": password
-            }
+            })
         });
-        const json = await response.json()
+        const json = await response.json();
         if (json.success) {
             localStorage.setItem('token', json.authToken);
             return json;
@@ -33,13 +33,13 @@ const AuthState = (props) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: {
+            body: JSON.stringify({
                 "firstName": firstName,
                 "lastName": lastName,
                 "enrollment": enrollment,
                 "email": email,
                 "password": password
-            }
+            })
         });
         const json = await response.json();
         if (!json.success) {
@@ -53,10 +53,10 @@ const AuthState = (props) => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: {
+            body: JSON.stringify({
                 "id": otpId,
                 "otp": otp
-            }
+            })
         });
         const json = await response.json();
         if (!json.success) {
@@ -83,9 +83,9 @@ const AuthState = (props) => {
     }
 
     return (
-        <AuthContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails }} >
+        <authContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails }} >
             {props.children}
-        </AuthContext.Provider>
+        </authContext.Provider>
     )
 }
-export default AuthState
+export default AuthState;

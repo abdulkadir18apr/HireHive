@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Home from './modules/homepage/Home';
 import Auth from "./modules/authentication/Auth";
+import Dashboard from './modules/student/Dashboard';
 import { useState } from 'react';
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
         <Routes>
           <Route path="*" element={<Home />} />
           <Route path='/authenticate' element={<Auth darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
+          <Route path='/student/dashboard' element={<Dashboard />} />
 
         </Routes>
 

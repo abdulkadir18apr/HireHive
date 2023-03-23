@@ -31,6 +31,8 @@ export default function Navbar() {
                     <label className="form-check-label" htmlFor="flexSwitchCheckDefault" style={{ color: "#ea580c" }}>DarkMode</label>
                 </div></li>
                 <li><Link to="/authenticate">Login</Link></li>
+                <li><Link to="/authenticate">Login-Employer</Link></li>
+                <li><Link to="/authenticate">Login-Admin</Link></li>
             </ul>
         </div>
     )
