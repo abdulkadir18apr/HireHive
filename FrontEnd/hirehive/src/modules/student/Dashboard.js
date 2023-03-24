@@ -5,7 +5,9 @@ import { useNavigate } from 'react-router-dom'
 export default function Dashboard() {
     const navigate = useNavigate()
     useEffect(() => {
+
         if (!localStorage.getItem('token')) {
+
             navigate('/authenticate');
             alert("Please Login First");
 

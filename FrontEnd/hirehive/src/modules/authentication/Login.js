@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Login(props) {
     const authObj = useContext(authContext);
+
     const navigate = useNavigate();
 
-    const { studentLogin } = authObj;
-    const [credentials, setCredentials] = useState({ email: "", password: "" });
+    const { studentLogin, studentSignUp, studentOtpVerify } = authObj;
+    const [credentials, setCredentials] = useState({});
+    const [otpDisplay, setOtpDisplay] = useState("none");
 
 
 
@@ -26,8 +28,39 @@ export default function Login(props) {
         if (!tokenObj.success) {
             alert("Something Went Wrong");
         }
-
+        setCredentials({});
         navigate('/student/Dashboard')
+    }
+    //Student SignUp Click Handle
+    const studentSignUpClick = async (e) => {
+        e.preventDefault();
+        const res = await studentSignUp(credentials);
+        if (!res.success) {
+            alert("ERROR:" + res.msg);
+            navigate("/authenticate");
+        }
+        else {
+            setOtpDisplay("");
+            setCredentials({ id: res.id });
+
+        }
+        setCredentials({});
+
+    }
+    //verifyOtp
+    const verifyStudentOtp = async (e) => {
+        e.preventDefault();
+        setOtpDisplay("none");
+        const res = await studentOtpVerify(credentials.id, credentials.otp);
+        if (!res.success) {
+            alert("ERROR:" + res.msg);
+            navigate('/authenticate');
+        }
+        else {
+            navigate('/student/Dashboard')
+        }
+        setCredentials({});
+
     }
 
 
@@ -35,10 +68,12 @@ export default function Login(props) {
     const [mode, setMode] = useState("");
     const toggleMode = () => {
         if (mode === "") {
+            setCredentials({});
             setMode("sign-up-mode")
         }
         else {
             setMode("");
+            setCredentials({});
         }
     };
     const changeMode = (e) => {
@@ -79,31 +114,31 @@ export default function Login(props) {
 
 
 
-                    <form className="sign-up-form">
+                    <form onSubmit={studentSignUpClick} method="POST" className="sign-up-form" >
                         <h2 className="title">Register</h2>
                         <div className="input-field">
                             <i className="fas fa-user"></i>
-                            <input type="text" placeholder="First Name" required minLength="3" name='first-name' />
+                            <input type="text" placeholder="First Name" required minLength="3" name='firstName' onChange={studentLoginChange} />
                         </div>
                         <div className="input-field">
                             <i className="fas fa-user"></i>
-                            <input type="text" placeholder="Last Name" required minLength="3" name='last-name' />
+                            <input type="text" placeholder="Last Name" required minLength="3" name='lastName' onChange={studentLoginChange} />
                         </div>
                         <div className="input-field">
                             <i className="fas fa-user"></i>
-                            <input type="text" placeholder="Enrollment No." required minLength="8" />
+                            <input type="text" placeholder="Enrollment No." required minLength="8" onChange={studentLoginChange} name="enrollment" />
                         </div>
                         <div className="input-field">
                             <i className="fas fa-envelope"></i>
-                            <input type="email" placeholder="Email" required />
+                            <input type="email" placeholder="Email" required onChange={studentLoginChange} name="email" />
                         </div>
                         <div className="input-field">
                             <i className="fas fa-lock"></i>
-                            <input type="password" placeholder="Password" />
+                            <input type="password" placeholder="Password" onChange={studentLoginChange} name="password" />
                         </div>
 
 
-                        <input type="submit" className="btn" value="Sign up" />
+                        <input type="submit" className="btn" value="Send OTP" />
 
 
                         <p className="social-text">Or Sign up with social platforms</p>
@@ -122,15 +157,24 @@ export default function Login(props) {
                             <a href="/"><i className="fa fa-twitter-square fa-3x"></i></a>
 
 
-
-
-
-
                         </div>
 
 
                     </form>
+                    <div className="otp-verification">
+                        <form method='POST' onSubmit={verifyStudentOtp} style={{ display: `${otpDisplay}` }}>
+                            <div className="input-field">
+                                <i className="fas fa-lock"></i>
+                                <input type="password" placeholder="Enter-OTP" onChange={studentLoginChange} name="otp" />
+                            </div>
+                            <input type="submit" value="VERIFY OTP" className="btn" />
+
+
+
+                        </form>
+                    </div>
                 </div>
+
             </div>
 
             <div className="panels-container">

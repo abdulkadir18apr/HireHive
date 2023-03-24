@@ -28,7 +28,7 @@ const AuthState = (props) => {
     }
 
     const studentSignUp = async ({ firstName, lastName, enrollment, email, password }) => {
-        const response = await fetch(`${host}api/auth/studentLogin`, {
+        const response = await fetch(`${host}api/auth/studentSignup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -43,9 +43,9 @@ const AuthState = (props) => {
         });
         const json = await response.json();
         if (!json.success) {
-            return json.msg;
+            return json;
         }
-        return json.id;
+        return json;
     }
     const studentOtpVerify = async (otpId, otp) => {
         const response = await fetch(`${host}api/auth/studentverify`, {
@@ -60,10 +60,10 @@ const AuthState = (props) => {
         });
         const json = await response.json();
         if (!json.success) {
-            return json.msg;
+            return json;
         }
         localStorage.setItem('token', json.authToken);
-        return json.success;
+        return json;
     }
     const getStudentDetails = async () => {
         const response = await fetch(`${host}api/auth/getStudent`, {
@@ -76,10 +76,10 @@ const AuthState = (props) => {
         });
         const json = response.json();
         if (!json.success) {
-            return json.msg || json.error;
+            return json;
         }
         setUser(json.student);
-        return user;
+        return json;
     }
 
     return (

@@ -49,7 +49,7 @@ router.post('/studentSignUp', [
     const errors = validationResult(req);
     let success = false;
     if (!errors.isEmpty()) {
-        res.status(400).json({ success, errors: errors.array() });
+        return res.status(400).json({ success, errors: errors.array() });
     }
     try {
 
@@ -65,9 +65,6 @@ router.post('/studentSignUp', [
         }
         //verification
         let verifyStudent = await Enrollment.findOne({ enrollment: req.body.enrollment, email: req.body.email });
-        //email otp verificaton
-
-
 
         //encrypt The Password
         const salt = await bcrypt.genSaltSync(10);
@@ -85,11 +82,11 @@ router.post('/studentSignUp', [
             })
         }
         else {
-            res.json({ success, msg: "Student Not enrolled in Scsit" });
+            return res.json({ success, msg: "Student Not enrolled in Scsit" });
         }
     }
     catch (error) {
-        res.status(500).json({ error: "Internal Server Error" })
+        return res.status(500).json({ error: "Internal Server Error" })
     }
 })
 
@@ -126,7 +123,9 @@ router.post('/studentverify', [body('otp').isLength({ min: 4 })], async (req, re
         const { id, otp } = req.body
         let success = await verifyOtp(id, otp);
         if (!success) {
+            await Student.findOneAndDelete({ verified: false });
             return res.json({ success, msg: "Otp verification Failed" });
+
         }
         let student = await userOtpVerification.findById(id);
         if (!student) {
@@ -143,13 +142,13 @@ router.post('/studentverify', [body('otp').isLength({ min: 4 })], async (req, re
         }
         const authToken = jwt.sign(data, JWT_SECRET);
         success = true;
-        res.json({ success, authToken })
+        return res.json({ success, authToken })
 
     }
 
     catch (err) {
 
-        res.status(500).json({ error: "Internal Server Error", err: err.message })
+        return res.status(500).json({ error: "Internal Server Error", err: err.message })
 
     }
 
@@ -242,7 +241,7 @@ const sendOtpVerificationEmail = async ({ _id, email }, res) => {
         const data = {
             user: _id, email
         }
-        res.json({
+        return res.json({
 
             success: true,
             message: "Verification Otp email Sent",
@@ -253,7 +252,7 @@ const sendOtpVerificationEmail = async ({ _id, email }, res) => {
 
     }
     catch (err) {
-        res.json({
+        return res.json({
             success: false,
             message: "something went wrong",
             status: "FAILED",
