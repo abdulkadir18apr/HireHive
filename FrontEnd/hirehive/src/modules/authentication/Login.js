@@ -27,9 +27,13 @@ export default function Login(props) {
         const tokenObj = await studentLogin(credentials);
         if (!tokenObj.success) {
             alert("Something Went Wrong");
+            setCredentials({});
         }
-        setCredentials({});
-        navigate('/student/Dashboard')
+        else {
+            setCredentials({});
+            navigate('/student/Dashboard')
+        }
+
     }
     //Student SignUp Click Handle
     const studentSignUpClick = async (e) => {
@@ -37,14 +41,14 @@ export default function Login(props) {
         const res = await studentSignUp(credentials);
         if (!res.success) {
             alert("ERROR:" + res.msg);
-            navigate("/authenticate");
+            console.log(credentials);
         }
         else {
             setOtpDisplay("");
             setCredentials({ id: res.id });
-
+            console.log(credentials);
         }
-        setCredentials({});
+
 
     }
     //verifyOtp
@@ -54,12 +58,15 @@ export default function Login(props) {
         const res = await studentOtpVerify(credentials.id, credentials.otp);
         if (!res.success) {
             alert("ERROR:" + res.msg);
-            navigate('/authenticate');
+            console.log(credentials);
+            setCredentials({});
+
         }
         else {
+            setCredentials({});
             navigate('/student/Dashboard')
         }
-        setCredentials({});
+
 
     }
 
