@@ -38,9 +38,19 @@ header{
     height: 50px;
 }
 
-.image{
-    width:100%;
-    height: 100%;
-}
 
+@media only screen and (max-width: 500px) {
+    .stickers {
+      display: grid;
+      grid-template-columns: 30px 30px;
+      grid-gap: 100px;
+    }
 
+    .header{
+        width: 100%;
+    }
+
+    .intro h1{
+        font-size: 40px;
+    }
+  }
