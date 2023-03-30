@@ -83,7 +83,7 @@ const AuthState = (props) => {
     }
 
     return (
-        <authContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails }} >
+        <authContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails, user }} >
             {props.children}
         </authContext.Provider>
     )

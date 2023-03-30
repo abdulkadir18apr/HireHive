@@ -1,7 +1,7 @@
 const express = require('express')
-const connectToMongo=require("./db");
+const connectToMongo = require("./db");
 var cors = require('cors')
-const env=require('dotenv').config({path: __dirname + '/.env'})
+const env = require('dotenv').config({ path: __dirname + '/.env' })
 connectToMongo();
 
 const app = express()
@@ -10,7 +10,8 @@ app.use(cors())
 //middleware
 app.use(express.json())
 //Available Routes
-app.use('/api/auth',require('./routes/auth'))
+app.use('/api/auth', require('./routes/auth'))
+app.use('/api/student/profile', require('./routes/student/profile'))
 
 
 app.get('/', (req, res) => {
