@@ -73,9 +73,9 @@ const BasicDetails = new Schema({
 
 const CourseDetail = new Schema({
     courseName: { type: String, require: true },
-    branchName: { type: String, require: true },
+    branchName: { type: String, default: null },
     instituteName: { type: String, require: true },
-    rollNumber: { type: String, require: true },
+    rollNumber: { type: String, default: null },
     started: { type: Date, require: true },
     ended: { type: Date, require: true },
     pecentage: { type: Number, require: true },
@@ -85,11 +85,11 @@ const CourseDetail = new Schema({
 
 
 const EducationDetails = new Schema({
-    Masters: { type: CourseDetail, default: null },
-    Bachelors: { type: CourseDetail, require: true },
+    masters: { type: CourseDetail, default: null },
+    bachelors: { type: CourseDetail, require: true },
     classTwelve: { type: CourseDetail, require: true },
     classTen: { type: CourseDetail, require: true },
-    Diploma: { type: CourseDetail, default: null }
+    diploma: { type: CourseDetail, default: null }
 })
 
 
@@ -114,7 +114,7 @@ const ProjectDetails = new Schema({
         type: [{
             projectName: { type: String },
             projectLink: { type: String },
-            gitHubRepo: { type: String },
+            githubRepo: { type: String },
             Description: { type: String }
         }],
         default: null
