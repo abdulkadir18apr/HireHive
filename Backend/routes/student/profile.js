@@ -352,11 +352,24 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
 
 })
 
+router.get('/getprofiledetails', fetchuser, async (req, res) => {
+    const id = req.user.id;
+    let success = false;
+    try {
+        const studentProfile = await Profile.findOne({ profileId: id });
+        if (!studentProfile) {
+            return res.status(400).json({ success, msg: "Profile Not Found" });
+        }
+        return res.json(studentProfile);
+    }
+
+    catch (err) {
+        return res.status(400).json({ success, msg: "Something went wrong", err: err.message });
+    }
 
 
+})
 
-
-router.post('/')
 
 
 
