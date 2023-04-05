@@ -1,11 +1,18 @@
-import React, { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useContext, useEffect } from 'react'
+import { Outlet, useNavigate } from 'react-router-dom'
+import Navbar from "./Navbar"
+import ProfileContext from '../../contexts/profile/ProfileContext';
+import ProfileState from '../../contexts/profile/ProfileState';
+import Profile from "./Profile";
+import {
+    Routes,
+    Route,
+} from "react-router-dom";
 
 
 export default function Dashboard() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
-
         if (!localStorage.getItem('token')) {
 
             navigate('/authenticate');
@@ -15,8 +22,14 @@ export default function Dashboard() {
 
     }, [])
     return (
-        <div>
-            <h1>Let's Start Building Student Module This Week</h1>
+        <div className='student-navbar'>
+
+            <Navbar />
+            <Outlet />
+
+
+
         </div>
+
     )
 }

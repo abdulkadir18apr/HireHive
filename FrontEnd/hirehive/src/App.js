@@ -8,6 +8,10 @@ import Home from './modules/homepage/Home';
 import Auth from "./modules/authentication/Auth";
 import Dashboard from './modules/student/Dashboard';
 import { useState } from 'react';
+import ProfileState from './contexts/profile/ProfileState';
+import Profile from "./modules/student/Profile"
+
+
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
@@ -28,19 +32,22 @@ function App() {
 
   }
   return (
+    <ProfileState>
+      <div className="app">
 
-
-    <div className="app">
-      <BrowserRouter>
         <Routes>
           <Route path="*" element={<Home />} />
           <Route path='/authenticate' element={<Auth darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
-          <Route path='/student/dashboard' element={<Dashboard />} />
+          <Route path='/student' element={<Dashboard />} >
+            <Route path="profile" element={<Profile />}></Route>
+          </Route>
+
 
         </Routes>
 
-      </BrowserRouter>
-    </div>
+
+      </div>
+    </ProfileState>
 
   );
 }

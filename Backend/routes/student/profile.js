@@ -68,7 +68,7 @@ router.post('/profilepicture', fetchuser, upload.single('profileImage'), async (
             return res.status(400).json("please try login again");
         }
         if (profile.profileImage !== null) {
-            await fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${profile.profileImage}`);
+            await fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${profile.profileImage}`);
 
         }
         if (req.file) {
@@ -237,7 +237,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');
@@ -260,7 +260,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');
@@ -282,7 +282,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');
@@ -305,7 +305,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');
@@ -328,7 +328,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');

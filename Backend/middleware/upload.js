@@ -4,7 +4,7 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, 'public/uploads/');
     },
     filename: function (req, file, cb) {
         let ext = path.extname(file.originalname);
@@ -30,7 +30,7 @@ const upload = multer({
 
 const storageResume = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/resume/');
+        cb(null, 'public/uploads/resume/');
     },
     filename: function (req, file, cb) {
         let ext = path.extname(file.originalname);
@@ -57,7 +57,7 @@ const uploadPdf = multer({
 
 const storageMarksheet = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/marksheets/');
+        cb(null, 'public/uploads/marksheets/');
     },
     filename: function (req, file, cb) {
         let ext = path.extname(file.originalname);

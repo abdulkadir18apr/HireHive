@@ -19,11 +19,13 @@ export default function Login(props) {
 
     //handle Student login Change
     const studentLoginChange = (e) => {
+        console.log(e.target.value);
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
     }
     //handle login click 
     const studentLoginClick = async (e) => {
         e.preventDefault();
+        console.log(credentials);
         const tokenObj = await studentLogin(credentials);
         if (!tokenObj.success) {
             alert("Something Went Wrong");
@@ -31,7 +33,7 @@ export default function Login(props) {
         }
         else {
             setCredentials({});
-            navigate('/student/Dashboard')
+            navigate('/student')
         }
 
     }
@@ -60,11 +62,10 @@ export default function Login(props) {
             alert("ERROR:" + res.msg);
             console.log(credentials);
             setCredentials({});
-
         }
         else {
             setCredentials({});
-            navigate('/student/Dashboard')
+            navigate('/student')
         }
 
 
@@ -105,7 +106,7 @@ export default function Login(props) {
                             <i className="fas fa-lock"></i>
                             <input type="password" className="form-control" placeholder="Password" name='password' required minLength="8" onChange={studentLoginChange} />
                         </div>
-                        <input type="submit" value="Login" className="btn solid" name="login" onClick={studentLoginClick} />
+                        <input type="submit" value="Login" className="btn solid" name="login" onClick={(e) => studentLoginClick(e)} />
                         <p className="social-text">Or Sign in with social platforms</p>
                         <div className="social-media-icons">
 
@@ -197,7 +198,7 @@ export default function Login(props) {
                             Sign up
                         </button>
                     </div>
-                    <img src={ill} className="image" alt="" />
+                    <img src={ill} className="login-image" alt="" />
 
                 </div>
                 <div className="panel right-panel">
@@ -211,7 +212,7 @@ export default function Login(props) {
                             Sign In
                         </button>
                     </div>
-                    <img src={register} className="image" alt="" />
+                    <img src={register} className="login-image" alt="" />
                 </div>
             </div>
         </div >

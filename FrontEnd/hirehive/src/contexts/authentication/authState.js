@@ -20,6 +20,7 @@ const AuthState = (props) => {
         const json = await response.json();
         if (json.success) {
             localStorage.setItem('token', json.authToken);
+            setUser("student");
             return json;
         }
         else {
@@ -63,6 +64,7 @@ const AuthState = (props) => {
             return json;
         }
         localStorage.setItem('token', json.authToken);
+        setUser("student");
         return json;
     }
     const getStudentDetails = async () => {
@@ -78,7 +80,7 @@ const AuthState = (props) => {
         if (!json.success) {
             return json;
         }
-        setUser(json.student);
+        setUser("student");
         return json;
     }
 
