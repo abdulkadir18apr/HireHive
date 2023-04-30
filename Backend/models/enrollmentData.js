@@ -22,7 +22,7 @@ const enrollmentSchema = new Schema({
     },
 })
 const enrollmentData = mongoose.model('enrollment-data', enrollmentSchema);
-enrollmentData.createCollection().then((collection) => {
-    console.log("collection is created!!")
-})
+// enrollmentData.createCollection().then((collection) => {
+//     console.log("collection is created!!")
+// })
 module.exports = mongoose.model('enrollment-data', enrollmentSchema)
