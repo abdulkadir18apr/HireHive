@@ -4,10 +4,12 @@ import ill from "./img/ill.svg"
 import register from "./img/register.svg"
 import authContext from '../../contexts/authentication/AuthContext';
 import { useNavigate } from "react-router-dom";
+import ProfileContext from '../../contexts/profile/ProfileContext';
 
 
 export default function Login(props) {
     const authObj = useContext(authContext);
+    const { getStudentProfile, fullName } = useContext(ProfileContext);
 
     const navigate = useNavigate();
 
@@ -33,7 +35,21 @@ export default function Login(props) {
         }
         else {
             setCredentials({});
-            navigate('/student')
+            const isProfile = await getStudentProfile();
+
+            if (isProfile) {
+                if (fullName === "") {
+                    console.log("NewUser");
+                    navigate('/student/addBasicDetails');
+                }
+                navigate('/student')
+            }
+            else {
+                console.log("Profile Nhi mIli")
+                navigate('/student/addBasicDetails');
+            }
+
+
         }
 
     }
@@ -90,7 +106,7 @@ export default function Login(props) {
         props.toggleDarkMode();
     }
     return (
-        <div className={`container ${mode}`}>
+        <div className={`loginContainer ${mode}`}>
             <div className="forms-container">
 
                 <div className="signin-signup">

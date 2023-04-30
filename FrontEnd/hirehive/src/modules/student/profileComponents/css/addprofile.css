@@ -1,0 +1,65 @@
+.CompleteProfile{
+
+    display: flex;
+    overflow: auto;
+    margin:0rem 2rem;
+   
+    /* background-color: #134e4a; */
+}
+.add-form{
+    padding:0px;
+    /* border:2px solid yellow; */
+    display: flex;
+    flex-direction: row;
+    gap:3%;
+    width:100%;
+
+}
+.add-form .basic{
+    display: flex;
+    /* background-color: #7dd3fc; */
+    flex-direction: column;
+    padding:1rem 1rem;
+    overflow:visible;
+    background-color: violet;
+    border-radius: 20px;
+  
+}
+.basic:first-of-type{
+    margin-top: 1rem;
+}
+.add-form label{
+    display: block;
+   
+}
+.add-form label input{
+    display: block;
+    margin-left:2rem;
+    border:none;
+    border-bottom: 2px solid rgb(8,47,73);
+    background-color: inherit;
+    margin-bottom: 1rem;
+}
+.radio{
+    display: flex;
+    gap:15%
+}
+.radio label input{
+    display: inline-block;
+    border:2px solid rgb(8,47,73);;
+
+}
+
+.basic h1{
+    text-align: center;
+    margin-bottom: 1rem;
+    font-weight: 800;
+
+}
+.submitBtn{
+    background-color: rgb(8,47,73);
+    font-weight: 800;
+    color:yellowgreen;
+    border-radius: 10px;
+    width:0 auto;
+}

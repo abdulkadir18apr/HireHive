@@ -6,36 +6,24 @@ import { useNavigate } from 'react-router-dom'
 import { Link } from "react-router-dom";
 
 export const Navbar = () => {
-
-    const { getStudentProfile, profile } = useContext(ProfileContext);
-    const [fullName, setFullName] = useState("");
-    const [profilePic, setProfilePic] = useState("");
     const navigate = useNavigate();
-    const StudentData = async () => {
-        const res = await getStudentProfile();
-        console.log(res);
-        if (profile.BasicDetails != null) {
-            const { BasicDetails: { firstName, lastName }, profileImage } = profile;
-            setFullName(firstName.toUpperCase() + " " + lastName.toUpperCase());
-            let url = profileImage.slice(6);
-            setProfilePic("http://localhost:8000/" + url);
-            console.log(fullName);
-            console.log(profilePic)
-        }
+    const { fullName, profilePic } = useContext(ProfileContext);
+    let url = profilePic !== "" ? `http://localhost:8000${profilePic.slice(6)}` : "";
 
-
-    }
+    
     const studentLogout = () => {
         localStorage.removeItem('token');
         navigate('/');
-
     }
-    useEffect(() => {
-        StudentData();
-    }, [])
+
+    // useEffect(() => {
+    //     StudentData();
+    // }, [])
+
+
     return (
         <div className="">
-            <nav className="bg-sky-950 relative px-8 py-4 flex justify-between items-center border-y border-gray-400 dark:border-gray-700">
+            <nav className=" bg-sky-950 relative px-8 py-4 flex justify-between items-center border-y border-gray-400 dark:border-gray-700">
                 <a className="text-3xl font-bold leading-none" href="/">
                     <Logo />
                 </a>
@@ -98,12 +86,12 @@ export const Navbar = () => {
                                 {fullName}
                             </span>
                             <span className="text-sm font-medium text-yellow-500 hover:text-orange-500 dark:text-yellow-400 cursor-pointer">
-                                <Link to="profile">View Profile</Link>
+                                <Link to={`profile/${fullName}`}>View Profile</Link>
                             </span>
                         </span>
                         <img
                             className="inline-block w-20 h-20 rounded-full"
-                            src={profilePic}
+                            src={url}
                             alt="John Doe"
                         />
                         <button onClick={studentLogout} className="text-sm font-medium text-yellow-500 dark:text-yellow-100">

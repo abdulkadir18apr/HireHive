@@ -83,6 +83,12 @@ const AuthState = (props) => {
         setUser("student");
         return json;
     }
+  
+   
+
+
+
+
 
     return (
         <authContext.Provider value={{ studentLogin, studentOtpVerify, studentSignUp, getStudentDetails, user }} >

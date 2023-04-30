@@ -3,6 +3,44 @@ const { Schema } = mongoose;
 
 
 
+const defaultEducation={
+    masters:{
+      courseName:"",
+      branchName:"",
+      instituteName:"",
+      rollNumber:"",
+      started:"",
+      ended:"",
+      pecentage:""
+    },
+    bachelors:{
+      courseName:"",
+      branchName:"",
+      instituteName:"",
+      rollNumber:"",
+      started:"",
+      ended:"",
+      pecentage:""
+    },
+    classTwelve:{
+      courseName:"",
+      instituteName:"",
+      started:"",
+      ended:"",
+      pecentage:""
+    },
+    classTen:{
+    courseName:"",
+      instituteName:"",
+      started:"",
+      ended:"",
+      pecentage:""
+    }
+      
+  }
+
+
+
 const AddressScema = new Schema({
     houseNumber: {
         type: String,
@@ -73,23 +111,23 @@ const BasicDetails = new Schema({
 
 const CourseDetail = new Schema({
     courseName: { type: String, require: true },
-    branchName: { type: String, default: null },
+    branchName: { type: String },
     instituteName: { type: String, require: true },
-    rollNumber: { type: String, default: null },
+    rollNumber: { type: String, },
     started: { type: Date, require: true },
     ended: { type: Date, require: true },
     pecentage: { type: Number, require: true },
-    marksheets: { type: String, default: null }
+    marksheets: { type: String,default:null }
 })
 
 
 
 const EducationDetails = new Schema({
-    masters: { type: CourseDetail, default: null },
+    masters: { type: CourseDetail },
     bachelors: { type: CourseDetail, require: true },
     classTwelve: { type: CourseDetail, require: true },
     classTen: { type: CourseDetail, require: true },
-    diploma: { type: CourseDetail, default: null }
+    diploma: { type: CourseDetail }
 })
 
 
@@ -115,7 +153,7 @@ const ProjectDetails = new Schema({
             projectName: { type: String },
             projectLink: { type: String },
             githubRepo: { type: String },
-            Description: { type: String }
+            description: { type: String }
         }],
         default: null
     }
@@ -125,11 +163,14 @@ const ProjectDetails = new Schema({
 const CertificationDetails = new Schema({
     Certificates: {
         type: [{
-            CertificateName: { type: String },
+            certificateName: { type: String },
             certificateLink: { type: String }
         }]
     }
 })
+
+
+
 
 const StudentProfile = new Schema({
 
@@ -141,7 +182,7 @@ const StudentProfile = new Schema({
     },
     EducationDetails: {
         type: EducationDetails,
-        default: null
+        default:defaultEducation
     },
     InternshipDetails: {
         type: InternshipDetails,
@@ -180,6 +221,9 @@ const StudentProfile = new Schema({
 
 
 })
+
+
+
 
 const studentProfile = mongoose.model('StudentProfile', StudentProfile);
 module.exports = studentProfile;

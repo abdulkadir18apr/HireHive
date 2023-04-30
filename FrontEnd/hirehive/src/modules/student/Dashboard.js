@@ -1,17 +1,24 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Navbar from "./Navbar"
 import ProfileContext from '../../contexts/profile/ProfileContext';
-import ProfileState from '../../contexts/profile/ProfileState';
-import Profile from "./Profile";
-import {
-    Routes,
-    Route,
-} from "react-router-dom";
+
 
 
 export default function Dashboard() {
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const { profile, fullName, profilePic, getStudentProfile } = useContext(ProfileContext);
+
+    const fetchStudent = async () => {
+        const res = await getStudentProfile();
+
+    }
+
+
+
+
+
     useEffect(() => {
         if (!localStorage.getItem('token')) {
 
@@ -19,13 +26,26 @@ export default function Dashboard() {
             alert("Please Login First");
 
         }
+        else {
+            fetchStudent();
+            setLoading(false);
+        }
+        console.log(loading);
+
 
     }, [])
     return (
-        <div className='student-navbar'>
+        <div className=' overflow: auto;'>
 
-            <Navbar />
+            {console.log(profile)}
+
+            {loading ? <p>Loading............</p> : <div className='sticky top-0 z-20'>
+                <Navbar />
+            </div>
+            }
+
             <Outlet />
+
 
 
 

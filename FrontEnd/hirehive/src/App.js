@@ -10,6 +10,7 @@ import Dashboard from './modules/student/Dashboard';
 import { useState } from 'react';
 import ProfileState from './contexts/profile/ProfileState';
 import Profile from "./modules/student/Profile"
+import { AddProfile } from './modules/student/profileComponents/AddProfile';
 
 
 
@@ -39,7 +40,15 @@ function App() {
           <Route path="*" element={<Home />} />
           <Route path='/authenticate' element={<Auth darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           <Route path='/student' element={<Dashboard />} >
-            <Route path="profile" element={<Profile />}></Route>
+            <Route path="addBasicDetails" element={<AddProfile />} />
+            <Route path="addBasicDetails/:id" element={<AddProfile />} />
+
+            <Route path="profile" element={<Profile />}>
+
+            </Route>
+            <Route path="profile/:id" element={<Profile />}>
+
+            </Route>
           </Route>
 
 

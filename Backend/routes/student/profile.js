@@ -59,6 +59,7 @@ router.post('/setbasicdetails',
     })
 
 
+
 router.post('/profilepicture', fetchuser, upload.single('profileImage'), async (req, res) => {
     try {
         success = false;
@@ -68,7 +69,7 @@ router.post('/profilepicture', fetchuser, upload.single('profileImage'), async (
             return res.status(400).json("please try login again");
         }
         if (profile.profileImage !== null) {
-            await fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${profile.profileImage}`);
+            await fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${profile.profileImage}`);
 
         }
         if (req.file) {
@@ -82,6 +83,26 @@ router.post('/profilepicture', fetchuser, upload.single('profileImage'), async (
             return res.status(400).json({ success, msg: "please select a file" });
         }
 
+    }
+    catch (err) {
+        return res.status(400).json({ success, msg: err.message });
+    }
+})
+
+
+router.put('/updateBasicDetails', fetchuser, async (req, res) => {
+    try {
+        success = false;
+        const id = req.user.id;
+        const profile = await Profile.findOne({ profileId: id });
+        if (!profile) {
+            return res.status(400).json("please try login again");
+        }
+        profile.BasicDetails=req.body;
+        profile.save();
+
+        success = true;
+        return res.json({ success, msg: "Address Details Updated" });
     }
     catch (err) {
         return res.status(400).json({ success, msg: err.message });
@@ -116,7 +137,10 @@ router.put('/intershipdetails', [], fetchuser, async (req, res) => {
         if (!studentProfile) {
             return res.status(400).json("please login Again");
         }
-        studentProfile.InternshipDetails = req.body;
+        if(studentProfile.InternshipDetails===null){
+             studentProfile.InternshipDetails={internships:[]};
+        }
+        studentProfile.InternshipDetails.internships=[...studentProfile.InternshipDetails.internships,req.body];
         studentProfile.save();
         success = true;
         return res.json({ success, msg: "Internship Details Updated" });
@@ -125,6 +149,37 @@ router.put('/intershipdetails', [], fetchuser, async (req, res) => {
         return res.status(400).json({ success, msg: "Somethong went wrong" });
     }
 })
+
+router.delete('/deleteIntershipdetails', [], fetchuser, async (req, res) => {
+    let success = false;
+    try {
+
+        const id = req.user.id;
+        const studentProfile = await Profile.findOne({ profileId: id });
+        if (!studentProfile) {
+            return res.status(400).json("please login Again");
+        }
+        if(studentProfile.InternshipDetails===null){
+            return res.status(400).json("please login Again");
+        }
+        const newInternship=studentProfile.InternshipDetails.internships.filter((internship)=>internship._id.toString()!==req.body.id);
+        studentProfile.InternshipDetails.internships=[...newInternship]
+        studentProfile.save();
+        success = true;
+        return res.json({ success, msg: "Internship Deleted" });
+    }
+    catch (err) {
+        return res.status(400).json({ success, msg: "Somethong went wrong" });
+    }
+})
+
+
+
+
+
+
+
+
 router.put('/skills', [], fetchuser, async (req, res) => {
     let success = false;
     try {
@@ -154,15 +209,41 @@ router.put('/projectdetails', [], fetchuser, async (req, res) => {
         if (!studentProfile) {
             return res.status(400).json("please login Again");
         }
-        studentProfile.ProjectDetails = req.body;
+        if(studentProfile.ProjectDetails===null){
+            studentProfile.ProjectDetails={projects:[]}
+        }
+        studentProfile.ProjectDetails.projects = [...studentProfile.ProjectDetails.projects,req.body];
         studentProfile.save();
         success = true;
-        return res.json({ success, msg: "Project Details Updated details Updated" });
+        return res.json({ success, msg: "Project Added" });
     }
     catch (err) {
         return res.status(400).json({ success, msg: "Somethong went wrong" });
     }
 })
+router.delete('/deleteProjectdetails', [], fetchuser, async (req, res) => {
+    let success = false;
+    try {
+
+        const id = req.user.id;
+        const studentProfile = await Profile.findOne({ profileId: id });
+        if (!studentProfile) {
+            return res.status(400).json("please login Again");
+        }
+        if(studentProfile.ProjectDetails===null){
+            return res.status(400).json("please login Again");
+        }
+        const newProjectArr = [...studentProfile.ProjectDetails?.projects.filter((project)=>project._id.toString()!==req.body.id)];
+        studentProfile.ProjectDetails.projects=[...newProjectArr];
+        studentProfile.save();
+        success = true;
+        return res.json({ success, msg: "Project Deleted" });
+    }
+    catch (err) {
+        return res.status(400).json({ success, msg: "Somethong went wrong" });
+    }
+})
+
 router.put('/certificationdetails', [], fetchuser, async (req, res) => {
     let success = false;
     try {
@@ -181,6 +262,30 @@ router.put('/certificationdetails', [], fetchuser, async (req, res) => {
         return res.status(400).json({ success, msg: "Somethong went wrong" });
     }
 })
+
+
+router.delete('/DeleteCertificationdetails', [], fetchuser, async (req, res) => {
+    let success = false;
+    try {
+
+        const id = req.user.id;
+        const studentProfile = await Profile.findOne({ profileId: id });
+        if (!studentProfile) {
+            return res.status(400).json("please login Again");
+        }
+
+        const newCerificates = studentProfile.CertificationDetails?.Certificates.filter((certificate) => certificate.certificateLink !== req.body.certificateLink);
+        studentProfile.CertificationDetails = { Certificates: [...newCerificates] }
+        studentProfile.save();
+        success = true;
+        return res.json({ success, msg: "certifictaion deleted" });
+    }
+    catch (err) {
+        return res.status(400).json({ success, msg: "Somethong went wrong" });
+    }
+})
+
+
 
 router.post('/resume', fetchuser, uploadPdf.single('resume'), async (req, res) => {
     try {
@@ -237,7 +342,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');
@@ -305,7 +410,7 @@ router.post('/marksheet/:course', fetchuser, uploadMarksheet.array('marksheet[]'
             if (req.files) {
                 if (marksheets != null) {
                     const marksheetPath = marksheets.split(",");
-                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/public/${filePath}`))
+                    marksheetPath.forEach((filePath) => fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${filePath}`))
                 }
                 let filePath = '';
                 req.files.forEach((files) => filePath = filePath + files.path + ',');

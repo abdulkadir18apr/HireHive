@@ -1,0 +1,84 @@
+.basic{
+    /* border:2px solid olive; */
+    padding:1rem 0px;
+    width:100%;
+    overflow-x: hidden;
+}
+.education{
+    /* border:2px solid olive; */
+    padding:1rem 0px;
+    width:100%;
+    overflow-x: hidden;
+}
+.line{
+    display: block;
+    width:100%;
+    height:5px ;
+    background-color: black;
+    margin-bottom: 10px;
+}
+.basic__box{
+    margin-bottom:1rem ;
+
+}
+.basic__box h1{
+    font-weight: 800;
+    font-size: larger;
+    color:#082F49
+}
+.basic__box h3{
+    font-weight: 600;
+
+}
+.address{
+    display: flex;
+    /* flex-direction: ; */
+    justify-content: flex-start;
+    gap:30%;
+}
+.basic__box p span{
+    font-weight: 400;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: gray;
+
+}
+.basic__box p{
+    color:#082F49;
+    font-weight: 600;
+    padding: 3px;
+}
+.basic__box p span::after{
+    content: " : ";
+    
+}
+.contact{
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit{
+    margin-left:3rem;
+    cursor: pointer;
+}
+h1 i{
+    margin-right: 5px;
+}
+.modalBtn{
+    color:blue;
+    margin-bottom: 2rem;
+ 
+
+}
+.modalBtn:hover{
+   color:purple;
+}
+.modal-dialog{
+    max-width: 80%;
+}
+.active{
+    border-bottom: 2px solid red;
+}
+
+
+/* //resume */
+
