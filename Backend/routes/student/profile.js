@@ -287,15 +287,15 @@ router.delete('/DeleteCertificationdetails', [], fetchuser, async (req, res) => 
 
 
 
-router.post('/resume', fetchuser, uploadPdf.single('resume'), async (req, res) => {
+router.post('/uploadImage', fetchuser, uploadPdf.single('profileImage'), async (req, res) => {
     try {
         success = false;
         const id = req.user.id;
-        const profile = await Profile.findOne({ profileId: id });
+        const profile = await Profile.findOne({recruiter:id});
         if (!profile) {
             return res.status(400).json("please try login again");
         }
-        if (profile.resume !== null) {
+        if (profile.profileImage !== null) {
             await fs.unlinkSync(`D:/web_dev/React/HireHive/Backend/${profile.resume}`);
 
         }
@@ -461,7 +461,7 @@ router.get('/getprofiledetails', fetchuser, async (req, res) => {
     const id = req.user.id;
     let success = false;
     try {
-        const studentProfile = await Profile.findOne({ profileId: id });
+        const studentProfile = await Profile.findOne({ recruiter: id });
         if (!studentProfile) {
             return res.status(400).json({ success, msg: "Profile Not Found" });
         }

@@ -13,6 +13,10 @@ app.use(express.json())
 //Available Routes
 app.use('/api/auth', require('./routes/auth'))
 app.use('/api/student/profile', require('./routes/student/profile'));
+app.use('/api/student/job', require('./routes/student/jobs'));
+app.use('/api/recruiter/auth', require('./routes/employeeAuth'));
+app.use('/api/recruiter/profile', require('./routes/recruiter/profile'));
+app.use('/api/recruiter/job', require('./routes/recruiter/jobs'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 

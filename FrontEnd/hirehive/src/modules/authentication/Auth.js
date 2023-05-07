@@ -1,11 +1,5 @@
 import React from 'react'
 import AuthState from "../../contexts/authentication/AuthState";
-// import {
-//     Routes,
-//     Route,
-// } from "react-router-dom";
-
-
 import Login from './Login';
 
 export default function Auth(props) {

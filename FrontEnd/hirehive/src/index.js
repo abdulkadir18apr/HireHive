@@ -4,12 +4,20 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { RecruiterContextProvider } from './modules/recruiter/context/RecruiterContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+    <RecruiterContextProvider>
+    <App />
+
+    </RecruiterContextProvider>
+   
+   
+
+    
     </BrowserRouter>
 
   </React.StrictMode>

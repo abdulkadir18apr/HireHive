@@ -94,7 +94,7 @@ export default function Navbar() {
                     <li>
                         <Link
                             className="text-sm text-yellow-500  hover:text-orange-500 dark:text-gray-300"
-                            to="/recruiters"
+                            to=""
                         >
                             Recruiters
                         </Link>
@@ -105,7 +105,7 @@ export default function Navbar() {
                         <Link to="/authenticate">Student Login</Link>
                     </button>
                     <button className="rounded-md bg-yellow-600 px-3.5 py-1.5 text-base font-semibold leading-7 text-sky-950 hover:bg-indigo-500 ">
-                        <Link to="/authenticate">Recuriter Login</Link>
+                        <Link to="/recruiters/login">Recuriter Login</Link>
                     </button>
                 </div>
             </nav>

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const studentScema = new Schema({
+const recruiterSchema = new Schema({
     firstName: {
         type: String,
         require: true
@@ -10,10 +10,9 @@ const studentScema = new Schema({
         type: String,
         required: true
     },
-    enrollment: {
+    companyName: {
         type: String,
         required: true,
-        unique: true
     },
     email: {
         type: String,
@@ -32,9 +31,7 @@ const studentScema = new Schema({
     verified: {
         type: Boolean,
         default: false
-    },
-    appliedJobs:[{
-        type:Schema.Types.ObjectId,ref:"jobs"
-    }]
+    }
+ 
 })
-module.exports = mongoose.model('student', studentScema)
+module.exports = mongoose.model('recruiter', recruiterSchema)

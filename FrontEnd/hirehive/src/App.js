@@ -11,6 +11,9 @@ import { useState } from 'react';
 import ProfileState from './contexts/profile/ProfileState';
 import Profile from "./modules/student/Profile"
 import { AddProfile } from './modules/student/profileComponents/AddProfile';
+import {RecruiterAuth} from "./modules/recruiter/RecruiterAuth"
+import { RecruiterDahboard } from './modules/recruiter/RecruiterDahboard';
+import { RecruiterProfile } from './modules/recruiter/RecruiterProfile';
 
 
 
@@ -49,6 +52,11 @@ function App() {
             <Route path="profile/:id" element={<Profile />}>
 
             </Route>
+          </Route>
+
+          <Route path="/recruiters/login" element={<RecruiterAuth/>}/>
+          <Route path="/recruiters" element={<RecruiterDahboard/>}>
+            <Route path="profile" element={<RecruiterProfile/>}/>
           </Route>
 
 
