@@ -6,7 +6,7 @@ const jobSchema=new Schema({
     companyname:String,
     employementype:String,
     skills:String,
-    qualification:String,
+    cuttoff:String,
     cuttoff:String,
     positionCount:Number,
     salary:String,
