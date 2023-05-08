@@ -36,6 +36,7 @@ export default function Login(props) {
         else {
             setCredentials({});
             const isProfile = await getStudentProfile();
+            console.log("KHALI",isProfile);
 
             if (isProfile) {
                 if (fullName === "") {

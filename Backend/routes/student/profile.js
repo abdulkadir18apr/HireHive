@@ -461,7 +461,7 @@ router.get('/getprofiledetails', fetchuser, async (req, res) => {
     const id = req.user.id;
     let success = false;
     try {
-        const studentProfile = await Profile.findOne({ recruiter: id });
+        const studentProfile = await Profile.findOne({ profileId: id });
         if (!studentProfile) {
             return res.status(400).json({ success, msg: "Profile Not Found" });
         }
