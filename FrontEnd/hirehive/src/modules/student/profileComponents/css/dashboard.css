@@ -1,0 +1,72 @@
+.student-dashboard{
+    display: grid;
+    grid-template-areas: 
+    "header header "
+    "schedule jobs ";
+    grid-template-columns: 1.5fr 3fr;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 10px;
+    overflow-x: hidden;
+}
+.student-header{
+    grid-area: header;
+
+}
+.student-header h1{
+    font-weight: 800;
+    margin-bottom: 1rem;
+
+}
+.student-header p {
+    color:#434242
+
+}
+
+.upcoming{
+    background-color: #EDDBC7;
+    grid-area: schedule;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    margin-left: 3rem;
+    border-radius: 10px;
+
+}
+.upcoming ul li{
+    width:100%;
+  
+    color:#082F49;
+    font-weight: 600;
+    padding:10px;
+
+}
+.upcoming ul li:nth-child(even){
+    background-color: #FFBABA;
+
+
+}
+.upcoming ul li:nth-child(odd){
+    background-color: #C85C8E;
+
+
+}
+.open-jobs{
+    align-items: center;
+    grid-area: jobs;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}
+.open-jobs h2{
+    font-weight: 800;
+
+}
+.open-jobs .jobs{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width:100%;
+    justify-content: space-evenly;
+}

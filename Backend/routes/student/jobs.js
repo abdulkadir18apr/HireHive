@@ -8,18 +8,38 @@ const { body, validationResult } = require('express-validator');
 const fetchuser = require('../../middleware/fetchuser');
 const { upload, uploadPdf, uploadMarksheet } = require('../../middleware/upload')
 const fs = require('fs');
+const Recruiter = require('../../models/recruiter');
+const RecruiterProfile = require('../../models/recruiterProfile');
 
 //fetch unapplied Jobs
 router.get("/fetchJobs",fetchuser,async(req,res)=>{
     try{
-        const jobs=await Jobs.find({students:{$nin:req.user.id}});
+        
+        const jobs=await Jobs.find().populate({
+            path:'recruiter',
+        });
         if(!jobs){
             return res.status(400).json({success:false,msg:"No Jobs Found"})
         }
-        return res.json({success:true,jobs})
+        return res.json({success:true,jobs:jobs})
     }
     catch(err){
-        return res.status(400).json({success:false,error:ree.message})
+        return res.status(400).json({success:false,error:err.message})
+    }
+})
+router.get("/fetchLogo/:id",fetchuser,async(req,res)=>{
+    const recruiterId=req.params.id;
+
+    try{
+        
+        const logo=await RecruiterProfile.find({recruiter:recruiterId}).select('companyLogo');
+        if(!logo){
+            return res.status(400).json({success:false,msg:"No Logo Found"})
+        }
+        return res.json({success:true,logo})
+    }
+    catch(err){
+        return res.status(400).json({success:false,error:err.message})
     }
 })
 

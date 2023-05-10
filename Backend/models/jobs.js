@@ -2,15 +2,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const jobSchema=new Schema({
-    title:String,
+    position:String,
     companyname:String,
-    employementype:String,
+    employementType:String,
     skills:String,
+    qualification:String,
     cuttoff:String,
-    cuttoff:String,
-    positionCount:Number,
     salary:String,
     modeOfProcess:String,
+    rounds:Number,
     rounds:Number,
     timeline:[
         {

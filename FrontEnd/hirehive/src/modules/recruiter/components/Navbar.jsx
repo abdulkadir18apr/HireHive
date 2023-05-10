@@ -9,7 +9,7 @@ import { getRecruiter } from "../context/apicalls";
 
 export const Navbar = () => {
     const navigate=useNavigate();
-    const {state,setRecruiter}=useRecruiterContext();
+    const {state,setRecruiter,dispatch}=useRecruiterContext();
 
  
     const [fullName,setfullName]=useState("HireHive")
@@ -26,6 +26,8 @@ export const Navbar = () => {
    },[])
     const logouthandler=()=>{
         localStorage.clear();
+        dispatch({type:'logout',payload:""})
+        
         navigate("/");
     }
     return (
@@ -48,12 +50,12 @@ export const Navbar = () => {
                 </div>
                 <ul className="hidden lg:flex lg:items-center grow mx-10 space-x-6">
                     <li>
-                        <a
+                        <Link
                             className="text-sm text-yellow-500 hover:text-orange-600 dark:text-yellow-300"
-                            href="/"
+                            to=""
                         >
-                            Home
-                        </a>
+                            Dashboard
+                        </Link>
                     </li>
                     <li>
                         <a className="text-sm text-yellow-500 hover:text-orange-500" href="/">
@@ -61,12 +63,12 @@ export const Navbar = () => {
                         </a>
                     </li>
                     <li>
-                        <a
+                        <Link
                             className="text-sm text-yellow-500 hover:text-orange-600 dark:text-yellow-300"
-                            href="/"
+                            to={`postJob`}
                         >
-                            Job Postings
-                        </a>
+                           Post a Job
+                        </Link>
                     </li>
                     <li>
                         <a

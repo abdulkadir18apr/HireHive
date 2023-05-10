@@ -23,6 +23,7 @@ export const Profile=()=>{
       const response=await getProfile();
       if(response.success){
         dispatch({type:"setProfile",payload:response.profile});
+
         alert("profile pic updated");
       }
 

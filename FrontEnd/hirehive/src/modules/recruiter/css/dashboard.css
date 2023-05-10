@@ -1,0 +1,96 @@
+.dashboard{
+    margin-top:1rem;
+    display:grid;
+    grid-template-columns: 1fr 2fr;
+    grid-column-gap:20px;
+    /* grid-template-rows: auto minmax(0, 1fr); */
+}
+.jobs{
+
+    display: flex;
+    justify-content: center;
+    
+    margin-left: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+
+
+}
+
+.job_card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width:300px;
+    border-radius: 10px;
+    background-color: rgb(8,47,73);
+    color:#EAB308;
+    margin-bottom: 1rem;
+ 
+}
+.job_card img{
+    margin-bottom: 10px;
+}
+.job_card h1,h2{
+    font-weight: 800;
+    padding:10px;
+}
+.job_card p{
+    padding:10px;
+}
+.job_card p span{
+    font-weight: 600;
+}
+
+.job_btn{
+    display: flex;
+    width:100%;
+    justify-content: space-evenly;
+
+ 
+}
+.job_btn button{
+    background-color:#FFDCB6;
+    color:#8B1874;
+    padding:5px;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    border-radius: 10px;
+}
+
+.recent{
+    display:flex;
+    flex-direction: column;
+    text-align: center;
+   
+}
+
+
+.student_card{
+    display: flex;
+ 
+    justify-content: space-around; 
+    border-radius: 10px;
+    background-color: rgb(8,47,73);
+    color:#EAB308;
+    padding: 10px;
+    margin-bottom: 2rem;
+}
+.student_card img{
+    border-radius: 50%;;
+}
+.student_details{
+    text-align: center;
+}
+.student_btn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; 
+   
+}
+.student_btn button{
+    background-color:#FFDCB6;
+    color:#8B1874;
+    padding:10px;  
+    border-radius: 10px;
+}

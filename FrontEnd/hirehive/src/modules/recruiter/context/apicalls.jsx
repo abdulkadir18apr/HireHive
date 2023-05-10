@@ -104,6 +104,7 @@ export const getProfile=async()=>{
     }
 
 }
+
 export const addProfile=async(profile)=>{
     try{
         const res=await fetch(`${host}api/recruiter/profile/addProfile`,{
@@ -146,6 +147,70 @@ export const uploadImage=async(image,type)=>{
 
         const json=await res.json();
         console.log(json);
+        return json;
+    }
+    catch(error){
+        return {success:false,error}
+    }
+
+}
+
+export const uploadJobDescription=async(document,jobId)=>{
+    const formData=new FormData();
+    formData.append('document',document);
+
+    try{
+        const res=await fetch(`${host}api/recruiter/job/uploadJobDescription/${jobId}`,{
+            method:"POST",
+            headers:{
+                "auth-token":localStorage.getItem('token')  
+            },
+            body:formData
+        })
+
+        const json=await res.json();
+        return json;
+    }
+    catch(error){
+        return {success:false,error}
+    }
+
+}
+
+
+export const addJob=async(job)=>{
+
+    try{
+        const res=await fetch(`${host}api/recruiter/job/postJob`,{
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json" ,
+                "auth-token":localStorage.getItem('token')  
+            },
+            body:JSON.stringify(job)
+        })
+
+        const json=await res.json();
+        return json;
+    }
+    catch(error){
+        return {success:false,error}
+    }
+
+}
+
+export const fetchJob=async()=>{
+
+    try{
+        const res=await fetch(`${host}api/recruiter/job/fetchJob`,{
+            method:"GET",
+            headers:{
+                "Content-Type": "application/json" ,
+                "auth-token":localStorage.getItem('token')  
+            },
+        })
+
+        const json=await res.json();
         return json;
     }
     catch(error){

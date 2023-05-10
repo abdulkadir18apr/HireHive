@@ -1,0 +1,111 @@
+.jobpost{
+    display:grid;
+    grid-template-areas: 
+    "header header header"
+    "content form timeline";
+    grid-template-columns: 1.5fr 2fr 2fr;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    gap: 10px;
+}
+.header{
+    grid-area: header;
+    text-align: center;
+    font-weight: 600;
+    padding:1rem;
+    color:#D25380;
+}
+.content{
+    grid-area: content;
+    /* border:2px solid blue; */
+    padding:2rem;
+}
+.content p {
+    font-weight: 500;
+    line-height: 1.75rem;
+    color:#D25380;
+}
+
+.content ol p{
+    color:#D25380;
+    margin-bottom: 1rem;
+}
+.content ol li{
+    color: #D25380;
+    margin-bottom: 1rem;
+
+}
+.form{
+    grid-area: form;
+    /* border:2px solid yellowgreen; */
+    padding:1rem 0rem;
+
+}
+.form label input{
+    border:none;
+    border-bottom: 2px solid  #D25380;
+    width:100%;
+
+
+}
+.form label{
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #D25380;
+
+}
+.form h2{
+    color:#D25380;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.select-box{
+    display: flex;
+    gap:20%
+}
+
+.timeline{
+    grid-area: timeline;
+    /* border:2px solid purple; */
+    text-align: center;
+
+}
+.inputs{
+    display: flex;
+    color:#D25380
+
+}
+.inputs label input{
+    width:10rem
+}
+.timeline .timelineBtn{
+    background-color: #082F49;
+    width:10rem;
+    padding:10px;
+    margin:1rem;
+    font-weight: 600;
+    color: #D25380;
+
+}
+
+.timeline-input{
+    background-color: white;
+    color:#D25380;
+    border:none;
+    border-bottom: 2px solid #D25380;
+}
+.round{
+    display: flex;
+    gap:2%
+}
+.round .timeline-input{
+    border-bottom:2px solid  #D25380;
+    width:9rem;
+    color: #d25380;
+    margin-bottom: 2rem;
+}
+.recent_heading{
+    color: #D25380;
+    font-size: larger;
+}

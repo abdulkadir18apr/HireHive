@@ -14,6 +14,7 @@ import { AddProfile } from './modules/student/profileComponents/AddProfile';
 import {RecruiterAuth} from "./modules/recruiter/RecruiterAuth"
 import { RecruiterDahboard } from './modules/recruiter/RecruiterDahboard';
 import { RecruiterProfile } from './modules/recruiter/RecruiterProfile';
+import { PostJob } from './modules/recruiter/PostJob';
 
 
 
@@ -44,6 +45,7 @@ function App() {
           <Route path='/authenticate' element={<Auth darkMode={darkMode} toggleDarkMode={toggleDarkMode} />} />
           <Route path='/student' element={<Dashboard />} >
             <Route path="addBasicDetails" element={<AddProfile />} />
+
             <Route path="addBasicDetails/:id" element={<AddProfile />} />
 
             <Route path="profile" element={<Profile />}>
@@ -57,6 +59,7 @@ function App() {
           <Route path="/recruiters/login" element={<RecruiterAuth/>}/>
           <Route path="/recruiters" element={<RecruiterDahboard/>}>
             <Route path="profile" element={<RecruiterProfile/>}/>
+            <Route path="postJob" element={<PostJob/>}/>
           </Route>
 
 

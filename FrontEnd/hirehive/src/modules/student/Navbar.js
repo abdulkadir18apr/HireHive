@@ -16,10 +16,6 @@ export const Navbar = () => {
         navigate('/');
     }
 
-    // useEffect(() => {
-    //     StudentData();
-    // }, [])
-
 
     return (
         <div className="">
@@ -41,12 +37,12 @@ export const Navbar = () => {
                 </div>
                 <ul className="hidden lg:flex lg:items-center grow mx-10 space-x-6">
                     <li>
-                        <a
+                        <Link
                             className="text-sm text-yellow-500 hover:text-orange-600 dark:text-yellow-300"
-                            href="/"
+                            to=""
                         >
-                            Home
-                        </a>
+                            DashBoard
+                        </Link>
                     </li>
                     <li>
                         <a className="text-sm text-yellow-500 hover:text-orange-500" href="/">
